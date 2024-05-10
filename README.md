@@ -8,3 +8,7 @@ $ sudo docker run -d -p 2222:22 --name [CONTAINER_NAME] chGoodchild/reticulum_ht
 $ ssh -v -i ~/.ssh/id_rsa -p 2222 root@[VPS_IP_ADDRESS]
 ```
 
+## Credits
+
+* Docker environment: https://github.com/rastasheep/ubuntu-sshd
+* HTTPS wrapper: https://github.com/jooray/nutband
