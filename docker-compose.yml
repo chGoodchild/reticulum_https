@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  reticulum_https:
+    image: chGoodchild/reticulum_https:24.04
+    ports:
+      - "2222:22"
+    volumes:
+      - ./lxmf:/lxmf  # Maps the local 'lxmf' directory to '/lxmf' in the container
+    environment:
+      - DEBIAN_FRONTEND=noninteractive
+    restart: unless-stopped

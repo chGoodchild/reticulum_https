@@ -3,13 +3,26 @@ MAINTAINER Aleksandar Diklic "https://github.com/rastasheep"
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Install necessary packages for Python and networking
+# Install necessary packages for Python, SSH, and virtual environments
 RUN apt-get update && \
-    apt-get install -y openssh-server python3 python3-pip && \
-    mkdir -p /var/run/sshd
+    apt-get install -y openssh-server python3 python3-pip python3-venv && \
+    mkdir -p /var/run/sshd && \
+    apt-get clean
 
-# Install Python packages
-RUN pip3 install httpx  # Install HTTPX for HTTP requests
+# RUN pip3 install --upgrade pip3 setuptools
+
+# Set up the virtual environment using python3
+RUN python3 -m venv /venv
+ENV PATH="/venv/bin:$PATH"
+
+# Activate the virtual environment and install packages
+RUN . /venv/bin/activate && pip install httpx
+
+# Install Python3 packages inside the virtual environment
+RUN pip install httpx
+
+# Adjust the PATH to include user-installed Python3 scripts
+ENV PATH="/root/.local/bin:$PATH"
 
 # Attempt to install RNS and LXMF via pip (replace with actual package names or installation commands)
 RUN pip3 install RNS LXMF
